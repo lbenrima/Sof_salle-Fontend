@@ -1,0 +1,189 @@
+{
+  "login": "Sign in",
+  "logout": "Sign out",
+  "Addroom": "Add room",
+  "name": "Name",
+  "capacity": "Capacity",
+  "emailAdress": "Email Adress",
+  "job": "Occupation",
+  "phone": "Phone number",
+  "building": "Building",
+  "floor": "Floor",
+  "block" : "Block",
+  "vp" : "Video projector",
+  "pt" : "Telephone bridge",
+  "vs" : "Visio",
+  "vd": "Validate",
+  "cl": "Close",
+  "cn": "Cancel",
+  "dl": "Delete",
+  "nx": "Next",
+  "upd": "Update",
+  "yes" : "Yes",
+  "no": "No",
+  "back": "Back",
+  "RManagment": "Room Managment",
+  "Rlist": "Rooms List",
+  "Languages":{
+    "English": "English",
+    "French": "French"
+  },
+  "listR" : "Rooms List",
+  "group":{
+      "addgrp" : "Add group",
+      "listgrp" : "Groups List",
+      "nbp" :  "Number of participants",
+      "rf": "Required fields",
+      "selectp": "Select participants",
+      "GManagment": "Group Managment",
+      "details": "Details",
+      "leader": "Leader"
+  },
+  "calendar":{
+      "calendar": "Calendar",
+	  "myCalendar": "My calendar",
+      "title" : "Check all reservations here",
+      "typeres": "What type of reservation you wish to create ?",
+      "simple": "Simple",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "from": "From",
+      "to": "To",
+      "sd": "Start Date",
+      "ed": "End Date",
+      "st": "Start Time",
+      "et": "End Time",
+      "every": "Every",
+      "noend": "No end",
+      "after": "After",
+      "week": "Week(s)",
+      "day": "Day(s)",
+      "select": "select days",
+      "month": "Month(s)",
+      "year": "Year(s)",
+      "dayofweek": "Day of Week",
+      "dayofmonth": "Day of month",
+	  "allDay" : "All day",
+	  "occurrence" : "occurrence",
+	  "everyDayOfTheWeek" : "Every day of the week",
+	  "everyDayOfTheMonth" : "Every day of the month",
+	  "withPeriodicity" : "with periodicity",
+	  "untilTheDateOf" : "Until the date of",
+	  "end" : "End"
+
+
+
+
+
+  },
+  "reservation":{
+      "name": "Reservation",
+      "newRes": "New Reservation",
+      "title": "Title",
+      "color": "Color",
+      "type": "Type",
+      "vis": "Visibility",
+      "meetingroom" :"Meetingroom",
+      "chooseParticipants": "Choose participants",
+      "invited": "Guests",
+      "create" : "Create"
+
+  },
+  "room":{
+	"name" : "room",
+    "location" : "Location",
+    "meetingRooms" : "Meeting rooms",
+    "equipment" : "Equipment"
+  },
+  "Password": "Password",
+  "refresh": "Refresh",
+  "addMeeting": "Add meeting",
+  "add": "Add",
+  "doYouWantToAddNewMeeting": "Do you want to add a new meeting?", 
+  "inviteParticipants": "Invite participants",
+  "numberParticipants": "Number of participants",
+  "participants": "Participants",
+  "CancelInvitation": "Cancel invitation",
+  "periodicity": "Periodicity",
+  "For": "For",
+  "ExternelTo": "Externel to",
+  "VerifyParticipantsEmails": "Verify participants' mails",
+  "profil": "Profile",
+  "logout": "Log out",
+  "required" : "required",
+  "reportProblem" : "Report a problem",
+  "subject" : "Subject",
+  "description" : "Description",
+  "send" : "Send",
+  "from": "From",
+  "bugReport" : "Report a bug",
+  "ameliorationSuggestion" : "Suggest an improvement",
+  "askInformation" : "Ask for information",
+  "sendFailed" : "Send failed",
+  "contact" : "Contactez",
+  "deletePeriodicity" : "Delete periodicity",
+  "periodicityInterval" : "Periodicity interval",
+  "appointmentTime" : "Appointment time",
+  "appointmentPeriodicity" : "Appointment periodicity",
+  "validateChoice" : "Validate choice",
+  "saveAndClose" : "Save & Close",
+  "ofAYear" : "of A Year",
+  "acceptConflict" : "Accept conflit",
+  "Monday": "Monday",
+  "Tuesday": "Tuesday",
+  "Wednesday": "Wednesday",
+  "Thursday": "Thursday",
+  "Friday": "Friday",
+  "Saturday": "Saturday",
+  "doYouReallyWantToDeleteThisRoom" : "Do you really want to delete this room?",
+  "roomCalendar":"Room calendar",
+  "addCalendar" : "Add calendar",
+  "addToMyFav" : "Add to my favorite calendars"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

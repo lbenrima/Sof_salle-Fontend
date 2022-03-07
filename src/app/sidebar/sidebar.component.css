@@ -1,0 +1,17 @@
+.addFavCalendar {
+	float:  right;
+    font-weight:  700;
+    color:  purple;
+    font-size: 40px;
+    margin-right: 5px;
+    margin-top: -35px;
+/*     margin-top: 5px; */
+	cursor: pointer;
+	
+}
+
+.caret-pref{
+	margin-top: -23px !important;
+    right: 43px !important;
+	color: white;
+}

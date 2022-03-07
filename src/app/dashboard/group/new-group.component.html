@@ -1,0 +1,67 @@
+<div class="main-content">
+    <div class="container-fluid">
+            <div class="col-md-12 ">
+                <div class="card">
+                    <form  (ngSubmit)="onSubmit()" #addGroup = "ngForm" name="grpAdd">
+                        <div class="card-header card-header-icon" data-background-color="purple">
+                            <i class="material-icons">add</i>
+                        </div>
+                        <div class="card-content">
+                            <br/><br/><br/>
+                            <h4 class="card-title">{{"group.addgrp"|translate}}</h4>
+                            <div class="form-group label-floating">
+                                <label class="control-label">{{"EmailAdress"| translate}}
+                                    <span class="star">*</span>
+                                </label>
+                                <input class="form-control" name="mail" type="text" email="true" [(ngModel)]="newGroup.mail" ngControl="mail" required  />
+                            </div>
+                            <div class="form-group label-floating">
+                                <label class="control-label">{{"group.nbp"| translate}}
+                                    <span class="star">*</span>
+                                </label>
+                                <input class="form-control" name="number" type="number" [(ngModel)]="newGroup.number" ngControl="number" required />
+                            </div> 
+
+                            <div class="material-datatables" class="checkbox-radios" >
+                                <br/><br/>
+                                <label class="label-control">{{"group.selectp"|translate}}</label>
+                                <table id="listCollabs"  class="table table-striped table-no-bordered table-hover" class="display"
+                                       cellspacing="0" width="100%" style="width:100%">
+                                    <thead>
+                                    <tr >
+                                        <th class="text-center">{{"Name"| translate}}</th>
+                                        <th class="text-center">{{"EmailAdress"| translate}}</th>
+                                        <th class="text-center">{{"job"| translate}}</th>
+                                        <th class="disabled-sorting text-right">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                    <tr  *ngFor="let collab of collabs"  style="cursor: pointer">
+                                        <td>{{collab.firstName}}</td>
+                                        <td>{{collab.mail}}</td>
+                                        <td>{{collab.occupation}}</td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="collabselected"
+                                                           [value]="collab.name"
+                                                           [checked]="selectedCollab.indexOf(collab) >= 0"
+                                                           (change)="onSelectionCollabChange(collab, $event)">
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="category form-category">
+                                <span class="star">*</span> {{"group.rf"|translate}}</div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-rose btn-fill btn-wd">{{"vd"|translate}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+node_modules
+.settings
+e2e
+dist

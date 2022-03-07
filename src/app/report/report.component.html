@@ -1,0 +1,72 @@
+<nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://www.sofrecom.com">Sofrecom Tn</a>
+        </div>
+        
+    </div>
+</nav>
+<div class="wrapper wrapper-full-page">
+    <div class="full-page login-page" filter-color="black" data-image="../assets/img/login.jpeg">
+
+        <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-sm-offset-3">
+                        <form (ngSubmit)="onSubmit()">
+                            <div class="card card-login card-hidden">
+                                <div class="card-header text-center" data-background-color="purple">
+                                    <h4 class="card-title">{{'contact'|translate}} Sof'Salles</h4>
+                                </div>
+                                <div class="card-content">
+									<div class="input-group">
+                                        <span class="input-group-addon">
+                                                <i class="material-icons">face</i>
+                                            </span>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">{{'from'|translate}}</label>
+                                            <input class="form-control" type="email" name="from" required="true" [(ngModel)]="report.from" />
+                                        </div>
+                                    </div>
+									<div class="input-group">
+                                        <span class="input-group-addon">
+                                                <i class="material-icons">bug_report</i>
+                                            </span>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">{{'subject'|translate}}</label>
+											<select class="form-control" name="subject" [(ngModel)]="report.subject" required>
+											<option>{{'bugReport'|translate}}</option>
+											<option>{{'ameliorationSuggestion'|translate}}</option>
+											<option>{{'askInformation'|translate}}</option>
+											</select>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                                <i class="material-icons">announcement</i>
+                                            </span>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">{{'description'|translate}}</label>
+											<textarea class="form-control" name="description" [(ngModel)]="report.description" rows="2" cols="50" required>
+											</textarea>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="errormsg" class="input-group">
+                                        <span class="input-group-addon">
+                                                <i class="material-icons" style="color: red;">error</i>
+                                            </span>
+                                        <label class="control-label" style="color: red;font-size: 13px;">{{'sendFailed'|translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="footer text-center">
+                                    <button type="submit" class="btn btn-primary btn-simple btn-wd btn-lg">{{'send'|translate}}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

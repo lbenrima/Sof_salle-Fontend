@@ -1,0 +1,136 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="card">
+                <form id="allInputsFormValidation" class="form-horizontal" (ngSubmit)="onSubmitRoom()" name="formadd" #formadd="ngForm">
+                    <div class="card-header card-header-icon" data-background-color="purple">
+                        <i class="material-icons">add</i> 
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">{{'Addroom' | translate}}</h4>
+                        <div class="row">
+                            <label class="col-sm-2 label-on-left">{{'name' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="form-group label-floating">
+                                    <label class="control-label"></label>
+                                    <input class="form-control" type="text" name="text" text="true" [(ngModel)]="newRoom.name" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 label-on-left">{{'capacity' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="form-group label-floating">
+                                    <label class="control-label"></label>
+                                    <input class="form-control" type="number" name="number" number="true" [(ngModel)]="newRoom.capacity" required/>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="row" *ngIf="false">
+                            <label class="col-sm-2 label-on-left">{{'emailAdress' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="form-group label-floating">
+                                    <label class="control-label"></label>
+                                    <input class="form-control" type="text" name="email" [(ngModel)]="newRoom.adresse"  email />
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="row">
+                            <label class="col-sm-2 label-on-left">{{'phone' | translate}}</label>
+                            <div class="col-sm-9">
+                                <div class="form-group label-floating">
+                                    <label class="control-label"></label>
+                                    <input class="form-control" type="number" name="number"  
+                                    [(ngModel)]="newRoom.telephone"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <label class="col-sm-2 label-on-left">{{'room.color' | translate}}<span class="star">*</span></label>
+                        <div class="col-md-2">
+										<input type="color" [(ngModel)]="newRoom.color" name="color" class="form-control"
+											>
+									</div>
+									</div>
+									 <div class="row">
+                            <label class="col-sm-2 label-on-left">{{'building' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-2">
+                                <div class="form-group label-floating column-sizing">
+                                    <select class="selectpicker form-control" data-style="select-with-transition"
+                                            [(ngModel)]="selectedBuilding"  id="selectedBuilding" name="selectedBuilding"
+                                    title=" " required>
+                                        <option *ngFor='let building of buildings'   name="namebuilding"
+                                        [ngValue]='building' >{{building.namebuilding}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="col-sm-1 label-on-left">{{'floor' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-2">
+                                <div class="form-group label-floating column-sizing">
+                                    <select class="selectpicker form-control" data-style="select-with-transition"
+                                            [(ngModel)]="selectedFloor" id="selectedFloor" name="selectedFloor" data-size="4"
+                                    title=" " required>
+                                        <option *ngFor='let floor of floors' [ngValue]='floor' name="numfloor" >{{floor.numfloor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="col-sm-1 label-on-left">{{'block' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-2">
+                                <div class="form-group label-floating column-sizing">
+                                    <select class="selectpicker form-control" data-style="select-with-transition"
+                                            [(ngModel)]="selectedBlock" id="selectedBlock" name="selectedBlock"
+                                             data-size="4" title= " " required >
+                                        <option *ngFor='let block of blocks' [ngValue]='block' name="nameblock" >{{block.nameblock}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4 label-on-left">{{'vp' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-1">
+                                <div class="form-group label-floating column-sizing">
+                                    <select class="selectpicker form-control" data-style="select-with-transition"
+                                            [(ngModel)]="stateVp" id="stateVp" name="stateVp"
+                                            data-size="4" title=" " required>
+                                        <option name="yes" [ngValue]='true' >{{'yes' | translate}}</option>
+                                        <option  name="no" [ngValue]='false' >{{'no' | translate}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="col-sm-2 label-on-left">{{'pt' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-1">
+                                <div class="form-group label-floating column-sizing">
+                                    <select class="selectpicker form-control" data-style="select-with-transition"
+                                            [(ngModel)]="statePt" id="statePt" name="statePt"
+                                            data-size="4"  title=" " required>
+                                        <option name="yes" [ngValue]='true' >{{'yes' | translate}}</option>
+                                        <option  name="no" [ngValue]='false' >{{'no' | translate}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="col-sm-1 label-on-left">{{'vs' | translate}}<span class="star">*</span></label>
+                            <div class="col-sm-1">
+                                <div class="form-group label-floating column-sizing">
+                                    <select class="selectpicker form-control" data-style="select-with-transition"
+                                            [(ngModel)]="statevs" id="statevs" name="statevs"
+                                            data-size="4"  title=" " required>
+                                        <option name="yes" [ngValue]='true' >{{'yes' | translate}}</option>
+                                        <option  name="no" [ngValue]='false' >{{'no' | translate}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary btn-fill" 
+                        [disabled]="!formadd.form.valid">{{'vd' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

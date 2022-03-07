@@ -1,0 +1,19 @@
+.search-input {
+	display: inline-flex;
+	float: right;
+    /* width: 100%; */
+}
+
+.form-search {
+	width: 100%;
+}
+.btn-refresh {
+	float: right !important;
+    width: 35px !important;
+    height: 35px !important;
+    padding: 1px !important;
+	border-radius: 15px;
+}
+.btn-refresh i{
+	font-size: 30px !important;
+}

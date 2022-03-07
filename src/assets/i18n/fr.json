@@ -1,0 +1,171 @@
+{
+  "login": "S'identifier",
+  "logout": "Quitter ",
+  "Addroom": "Ajout d'une salle",
+  "name": "Nom",
+  "Mail": "Email",
+  "Action": "Action",
+  "Obligatoire": "Obligatoire",
+  "capacity": "Capacité",
+  "emailAdress": "Adresse e-mail",
+  "job": "Occupation",
+  "phone": "Téléphone",
+  "building": "Bâtiment",
+  "floor": "Étage",
+  "block" : "Bloc",
+  "vp" : "Vidéoprojecteur",
+  "pt" : "Pont téléphonique",
+  "vs" : "Visio",
+  "vd": "Valider",
+  "cl": "Fermer",
+  "cn": "Annuler",
+  "dl": "Supprimer",
+  "nx": "Suivant",
+  "upd": "Mettre à jour",
+  "yes" : "Oui",
+  "no": "Non",
+  "back": "Retour",
+  "RManagment": "Gestion des salles",
+  "Rlist": "Liste des salles",
+  "profile": "Profil",
+  "logout": "Quitter",
+  "Languages":{
+    "English": "Anglais",
+    "French": "Français"
+  },
+  "listR" : "Liste des salles",
+  "group":{
+      "addgrp" : "Ajout d'un groupe",
+      "listgrp" : "Liste des groupes",
+      "nbp" :  "Nombre de participants",
+      "rf": "Champs obligatoires",
+      "selectp": "Sélectionnez les participants",
+      "GManagment": "Gestion des groupes",
+      "details": "Détails",
+      "leader": "Leader"
+  },
+  "calendar":{
+      "calendar": "Calendrier",
+      "myCalendar": "Mon calendrier",
+      "title" : "Consulter toutes les réservations ici",
+      "typeres": "Quel type de réservation vous souhaitez créer?",
+      "simple": "Simple",
+      "daily": "Quotidienne",
+      "weekly": "Hebdomadaire",
+      "monthly": "Mensuelle",
+      "yearly": "Annuelle",
+      "from": "De",
+      "to": "À",
+      "sd": "Date de début",
+      "ed": "Date de fin",
+      "st": "Heure de début",
+      "et": "Heure de fin",
+      "every": "Chaque",
+      "noend": "Pas de date de fin",
+      "after": "Après",
+      "week": "Semaine(s)",
+      "day": "Jour(s)",
+      "select": "Jours",
+      "month": "Mois(s)",
+      "year": "Année(s)",
+      "dayofweek": "Jour de la semaine",
+      "dayofmonth": "Jour du mois",
+	  "allDay" : "Journée entière",
+	  "occurrence" : "occurrence",
+	  "everyDayOfTheWeek" : "Chaque jour de la semaine",
+	  "everyDayOfTheMonth" : "Chaque jour du mois",
+	  "withPeriodicity" : "avec une plage de périodicité",
+	  "untilTheDateOf" : "jusqu'à la date de",
+	  "end" : "Fin"
+  },
+  "reservation":{
+      "name": "Réservation",
+      "newRes": "Nouvelle Réservation",
+      "title": "Nom de la réunion",
+      "color": "Couleur",
+      "type": "Type",
+      "vis": "Visibilité",
+      "meetingroom" : "Choix de salle de réunion",
+      "chooseParticipants": "Choix des participants",
+      "invited": "Invité externe",
+      "create" : "Créer"
+  },
+  "room":{
+	"name": "Salle",
+    "location" : "Emplacement",
+    "meetingRooms" : "Salles de réunions",
+	"equipment": "Équipement"
+  },
+  "infopopup":{
+    "msgsuccee": "Ajoutée avec succès"
+  },
+  "Monday": "Lundi",
+  "Tuesday": "Mardi",
+  "Wednesday": "Mercredi",
+  "Thursday": "Jeudi",
+  "Friday": "Vendredi",
+  "Saturday": "Samedi",
+  "Password": "Mot de passe",
+  "refresh": "Actualiser",
+  "addMeeting": "Ajouter une réunion",
+  "add": "Ajouter",
+  "doYouWantToAddNewMeeting": "Voulez-vous ajouter une nouvelle réunion?",
+  "inviteParticipants": "Inviter des participants",
+  "numberParticipants": "Nombre des participants",
+  "participants": "Participants",
+  "cancelInvitation": "Annuler l'invitation",
+  "periodicity": "Périodicité",
+  "to": "À",
+  "externelTo": "Externe À",
+  "VerifyParticipantsEmails": "Vérifier les emails des invitées",
+  "required" : "Obligatoire",
+  "reportProblem" : "Signaler un problème",
+  "subject" : "Sujet",
+  "description" : "Description",
+  "send" : "Envoyer",
+  "from": "De",
+  "bugReport" : "Reporter un bug",
+  "ameliorationSuggestion" : "Suggérer une amélioration",
+  "askInformation" : "Demande information",
+  "sendFailed" : "Échec d'envoie",
+  "contact" : "Contactez",
+  "deletePeriodicity" : "Supprimer la périodicité",
+  "periodicityInterval" : "Plage de périodicité",
+  "appointmentTime" : "Heure de rendez-vous",
+  "appointmentPeriodicity" : "Périodicité de rendez-vous",
+  "validateChoice" : "Valider choix",
+  "saveAndClose" : "Enregistrer & Fermer",
+  "ofAYear" : "d'une année",
+  "acceptConflict" : "Accepter conflit",
+  "doYouReallyWantToDeleteThisRoom" : "Voulez-vous vraiment supprimer cette salle ?",
+  "roomCalendar" : "Calendrier de salle",
+  "addCalendar" : "Ajouter calendrier"  ,
+  "addToMyFav" : "Ajouter à mes calendriers"
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

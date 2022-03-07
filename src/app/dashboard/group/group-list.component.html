@@ -1,0 +1,244 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="purple">
+                        <i class="material-icons">list</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">{{"group.listgrp"|translate}}</h4>
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="material-datatables"  >
+                            <table id="datatables"  class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>{{"EmailAdress"|translate}}</th>
+                                    <th>{{"group.nbp"|translate}}</th>
+                                    <th>{{"group.leader"|translate}}</th>
+                                    <th class="disabled-sorting text-right">Actions</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>{{"EmailAdress"|translate}}</th>
+                                    <th>{{"group.nbp"|translate}}</th>
+                                    <th>{{"group.leader"|translate}}</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                                </tfoot>
+                                <tbody >
+                                <tr  *ngFor="let group of groups"  style="cursor: pointer">
+                                    <td>{{group.mail}}</td>
+                                    <td>{{group.number}}</td>
+                                    <td>{{group.iduser.name}}</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" (click)="onSelect(group)" rel="tooltip" class="btn btn-info btn-round">
+                                            <i class="material-icons">person</i>
+                                        </button>
+                                        <button type="button" onclick="SomeDeleteRowFunction(this)" (click) ="deleteGrp(group)"  rel="tooltip" class="btn btn-warning btn-round">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+        <!-- end row -->
+    </div>
+</div>
+
+<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-small">
+        <div class="modal-content">
+            <div class="modal-header">
+                <b><h4 id="title" class="modal-title text-info" >{{"group.details"|translate}}</h4></b>
+            </div>
+            <div class="modal-body text-center">
+                <span><b>{{"EmailAdress"|translate}} : </b></span ><span id="mail"> </span><br/>
+                <span><b>{{"group.nbp"|translate}} : </b></span ><span id="number"> </span><br/>
+            </div>
+            <div class="modal-footer text-right">
+                <button type="button" class="btn btn-info btn-round" data-dismiss="modal">
+                    <!--<i class="material-icons">close</i>-->
+                    {{"cl"|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal right fade" id="upd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                </button>
+                <h3 id="title1" class="modal-title text-warning"> {{mail}}</h3>
+            </div>
+            <div class="modal-body text-center">
+                <!--  <form id="RangeValidation" class="form-horizontal" action="" method="">
+                  <div class="card-content">
+                      <div class="row">
+                          <label class="col-sm-2 label-on-left">Name</label>
+                          <div class="col-sm-7">
+                              <div class="form-group label-floating">
+                                  <label class="control-label"></label>
+                                  <input class="form-control" type="text" name="required" required="true" />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-2 label-on-left">Email adress</label>
+                          <div class="col-sm-7">
+                              <div class="form-group label-floating">
+                                  <label class="control-label"></label>
+                                  <input class="form-control" type="text" name="email" email="true" />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-2 label-on-left">Phone number</label>
+                          <div class="col-sm-7">
+                              <div class="form-group label-floating">
+                                  <label class="control-label"></label>
+                                  <input class="form-control" type="text" name="number" number="true" />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-2 label-on-left">Capacity</label>
+                          <div class="col-sm-7">
+                              <div class="form-group label-floating">
+                                  <label class="control-label"></label>
+                                  <input class="form-control" type="text" name="number" number="true" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  </form> -->
+                <!-- <form id="TypeValidation" class="form-horizontal" action="" method="">
+                         <div class="row">
+                             <label class="col-sm-3 label-on-left">Name</label>
+                             <div class="col-sm-8">
+                                 <div class="form-group label-floating">
+                                     <label class="control-label"></label>
+                                     <input class="form-control" type="text" name="required" required="true" />
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <label class="col-sm-3 label-on-left">Email Adress</label>
+                             <div class="col-sm-8">
+                                 <div class="form-group label-floating">
+                                     <label class="control-label"></label>
+                                     <input class="form-control" type="text" name="email" email="true" />
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <label class="col-sm-3 label-on-left">Phone number</label>
+                             <div class="col-sm-8">
+                                 <div class="form-group label-floating">
+                                     <label class="control-label"></label>
+                                     <input class="form-control" type="text" name="number" number="true" />
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-sm-4">
+                                 <div class="form-group label-floating column-sizing">
+                                     <select class="selectpicker" data-style="select-with-transition" title="building" data-size="4">
+                                         <option name="Meeting" >Prestige</option>
+                                         <option name="Appointment" >Matrix</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="col-sm-4">
+                                 <div class="form-group label-floating column-sizing">
+                                     <select class="selectpicker" data-style="select-with-transition" title="floor" data-size="4">
+                                         <option name="1" >1</option>
+                                         <option name="2" >2</option>
+                                         <option name="3" >3</option>
+                                         <option name="4" >4</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="col-sm-4">
+                                 <div class="form-group label-floating column-sizing">
+                                     <select class="selectpicker" data-style="select-with-transition" title="block" data-size="4">
+                                         <option name="Meeting" >A</option>
+                                         <option name="Appointment" >B</option>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-sm-4">
+                                 <div class="form-group label-floating column-sizing">
+                                     <select class="selectpicker" data-style="select-with-transition" title="Video projecteur" data-size="4">
+                                         <option name="Meeting" >YES</option>
+                                         <option name="Appointment" >NO</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="col-sm-4">
+                                 <div class="form-group label-floating column-sizing">
+                                     <select class="selectpicker" data-style="select-with-transition" title="Pont telephonique" data-size="4">
+                                         <option name="Meeting" >YES</option>
+                                         <option name="Appointment" >NO</option>
+                                     </select>
+                                 </div>
+                             </div>
+                             <div class="col-sm-4">
+                                 <div class="form-group label-floating column-sizing">
+                                     <select class="selectpicker" data-style="select-with-transition" title="Visio" data-size="4">
+                                         <option name="Meeting" >YES</option>
+                                         <option name="Appointment" >NO</option>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+                 </form> -->
+                <form id="allInputsFormValidation" class="form-horizontal"  name="formadd">
+                    <div class="card-content">
+                        <div class="row">
+                            <label class="col-sm-3 label-on-left">{{"EmailAdress"|translate}}</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label class="control-label"></label>
+                                    <input class="form-control" type="text" name="email" email="true" required="true" id="add" [(ngModel)]='mail' />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 label-on-left">{{"NumberParticipants"|translate}}</label>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label class="control-label"></label>
+                                    <input class="form-control" type="text"  name="number1" required="true" number="true" required="true" id="phn" [(ngModel)]='number'/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit"  class="btn btn-finish btn-primary btn-fill"
+                        data-dismiss="modal"  (click)="onUpdate()">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

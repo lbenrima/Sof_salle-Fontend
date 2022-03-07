@@ -1,0 +1,16 @@
+<div class="wrapper">
+    <div class="sidebar" *ngIf="showSideBar" data-active-color="purple" data-background-color="black" data-image="../assets/img/login.jpeg">
+        <!-- <div class="sidebar" data-color="red" data-image=""> -->
+        <sidebar-cmp></sidebar-cmp>
+        <div class="sidebar-background" style="background-image: url(assets/img/login.jpeg)"></div>
+    </div>
+    <div class="main-panel" [ngClass]="{'login-page-style':!showSideBar}">
+        <navbar-cmp></navbar-cmp>
+        <dashboard-cmp></dashboard-cmp>
+        <div>
+            <footer-cmp></footer-cmp>
+        </div>
+    </div>
+</div>
+
+

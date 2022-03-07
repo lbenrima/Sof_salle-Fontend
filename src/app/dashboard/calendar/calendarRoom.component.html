@@ -1,0 +1,837 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="header text-center">
+			<h3 class="title">{{"calendar.title"|translate}}</h3>
+			<div class="row" style="margin-top: -45px;">
+
+				<!--<button type="submit" style="float: right;"
+					[disabled]="!calendarRefreshed" (click)="rerenderFullCalendar()"
+					class="btn btn-finish btn-primary btn-fill" data-toggle="modal"
+					data-dismiss="modal">{{"refresh"|translate}}</button>-->
+					<button type="submit" style="float: right;"
+					[disabled]="!calendarRefreshed" (click)="rerenderFullCalendar()"
+					class="btn btn-primary btn-refresh"><i class="material-icons">sync</i></button>
+					<div class="card card-calendar">
+						<div class="card-content" class="ps-child">
+							<div id="fullCalendar"></div>
+						</div>
+					</div>
+			</div>
+			
+			
+		</div>
+
+		<div class="modal fade" id="info" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-small">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<i class="material-icons">clear</i>
+						</button>
+						<h4 id="title" class="modal
+                -title"></h4>
+					</div>
+					<div class="modal-body">
+						<h6 id="descRs"></h6>
+						{{"calendar.from"|translate}} : <span id="stime"></span>
+						{{"calendar.to"|translate}} : <span id="etime"></span><br />
+						{{"calendar.sd"|translate}} : <span id="sdate"></span><br />
+						{{"calendar.ed"|translate}} : <span id="edate"></span><br />
+					</div>
+					<div class="modal-footer">
+						<input type="number" id="num" style="display: none" /> <input
+							type="text" id="txt" style="display: none" />
+						<!--<button type="button" class="btn btn-primary btn-simple" data-toggle="modal"
+                        data-dismiss="modal" (click)="updateEvent()">
+                    {{"upd"|translate}}
+                </button>-->
+						<button type="button" class="btn btn-warning btn-simple"
+							data-toggle="modal" data-dismiss="modal" id="btndelete"
+							(click)="deleteEvent()">{{"dl"|translate}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="inf" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-small">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<i class="material-icons">clear</i>
+						</button>
+						<b><h4 id="titleUser" class="modal-title"></h4></b>
+					</div>
+					<div class="modal-body">
+						<h4 id="descUser"></h4>
+						<b>{{"room.name"|translate}} : </b><span id="roomTitle"></span><br />
+						<b>{{"calendar.sd"|translate}} : </b><span id="sd"></span><br /> <b>{{"calendar.ed"|translate}}
+							: </b><span id="ed"></span><br /> <b>{{"calendar.from"|translate}}
+							: </b><span id="st"></span> <b>{{"calendar.to"|translate}} : </b><span
+							id="et"></span><br />
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-warning" data-dismiss="modal"
+							aria-hidden="true">{{"cl"|translate}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- add reservation -->
+
+		<div class="modal modal-wide top fade" id="AddnewEvent" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-small">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<i class="material-icons">clear</i>
+						</button>
+						<b><h4 class="modal-title">{{"addMeeting"|translate}}</h4></b>
+					</div>
+					<div class="modal-body">
+						{{"doYouWantToAddNewMeeting"|translate}}</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-warning" data-dismiss="modal"
+							aria-hidden="true">{{"cn"|translate}}</button>
+						<button type="button" (click)="onStart()" class="btn btn-primary"
+							data-dismiss="modal" aria-hidden="true">
+							{{"add"|translate}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- simple reservation -->
+
+		<div class="modal modal-wide top fade" id="simpleRes" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			style="top: -10%;">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form name="formSimple" #simpleResnew="ngForm">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">
+								<i class="material-icons">clear</i>
+							</button>
+							<ul class="nav nav-pills nav-pills-orange center-block">
+								<li class="active"><a href="#pill1" data-toggle="tab">{{"reservation.newRes"|translate}}
+										{{eventPeriodname}}</a></li>
+							</ul>
+						</div>
+						<div class="modal-body" style="overflow-y: auto;">
+							<div class="tab-content">
+								<div class="col-md-12">
+									<div class="col-md-6">
+										<button *ngIf="!newReservation.invitePartisipans"
+											type="submit" (click)="invitedParticipant(true)"
+											style="float: left;"
+											class="btn btn-finish btn-primary btn-fill">
+											{{"inviteParticipants"|translate}}</button>
+										<button *ngIf="newReservation.invitePartisipans" type="submit"
+											(click)="invitedParticipant(false)" style="float: left;"
+											class="btn btn-finish btn-primary btn-fill">
+											{{"cancelInvitation"|translate}}</button>
+									</div>
+									<div class="col-md-6">
+										<button type="submit" (click)="showPeriodicite()"
+											style="float: right;"
+											class="btn btn-finish btn-primary btn-fill">
+											{{"periodicity"|translate}}</button>
+									</div>
+								</div>
+								<div *ngIf="newReservation.invitePartisipans" class="col-md-12">
+									<div class="col-md-2">
+										<label class="control-label"> {{"to"|translate}}...<span
+											style="color: red;">* </span></label>
+									</div>
+									<div class="col-md-10">
+										<input type="text" (click)="selectchoixParaticipants()"
+											name="selectedCollabString" class="form-control"
+											[(ngModel)]="selectedCollabString" required>
+									</div>
+								</div>
+								<div *ngIf="newReservation.invitePartisipans" class="col-md-12">
+									<div class="col-md-2">
+										<label class="control-label">
+											{{"externelTo"|translate}}...</label>
+									</div>
+									<div class="col-md-10">
+										<input type="text" (keyup)="choixInvitedListes()" id="invited"
+											name="invited" class="form-control"
+											[(ngModel)]="newReservation.invited">
+									</div>
+								</div>
+								<div
+									*ngIf="newReservation.invitePartisipans && errorEmailInvited"
+									class="col-md-12" style="color: red; margin-left: 18%">
+									{{"VerifyParticipantsEmails"|translate}}</div>
+								<div class="col-md-12">
+									<div class="col-md-2">
+										<label class="control-label">
+											{{"reservation.title"|translate}}<span style="color: red;">*
+										</span>
+										</label>
+									</div>
+									<div class="col-md-6">
+										<input type="text" id="titleid" name="title"
+											class="form-control" [(ngModel)]="newReservation.title"
+											required>
+									</div>
+									
+								</div>
+
+								<div class="col-md-12">
+									<div class="col-md-2">
+										<label class="control-label">
+											{{"calendar.sd"|translate}}<span style="color: red;">*
+										</span>
+										</label>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<input format="dd-MM-yyyy" id="start" type="text"
+												class="datepicker form-control" onkeydown="return false"
+												name="start" [(ngModel)]="newReservation.startdate" required />
+										</div>
+									</div>
+									<div class="col-md-2 form-group">
+										<input format="HH:mm" id="starttime" type="text"
+											class="timepicker form-control" onkeydown="return false"
+											[(ngModel)]="newReservation.starttime" name="starttime" (focusout)="resetRoom()"
+											[disabled]="newReservation.jourEntiere" required /> 
+									</div>
+									<div class="col-md-3 form-group checkbox">
+										<label><input type="checkbox" name="jourentiere"
+											(change)="checkJoursEntiereChange($event)"
+											[(ngModel)]="newReservation.jourEntiere">{{"calendar.allDay"|translate}}</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+
+
+								<div class="col-md-12">
+									<div class="col-md-2">
+										<label class="control-label">
+											{{"calendar.ed"|translate}}<span style="color: red;">*
+										</span>
+										</label>
+									</div>
+									<div class="col-md-3">
+										<input format="dd-MM-yyyy" id="enddate" type="text"
+											class="datepicker form-control" value="31-10-2017"
+											onkeydown="return false" name="enddate"
+											[(ngModel)]="newReservation.enddate" disabled />
+									</div>
+									<div class="col-md-2">
+										<input format="HH:mm" id="endtime" type="text"
+											class="form-control timepicker" onkeydown="return false"
+											value="18:00" name="endtime" (focusout)="resetRoom()"
+											[(ngModel)]="newReservation.endtime"
+											[disabled]="newReservation.jourEntiere" required />
+									</div>
+									<div class="col-md-3 form-group checkbox">
+										<label><input type="checkbox" name="accpetConflict"
+											(change)="checkAcceptConflict($event)"
+											[(ngModel)]="newReservation.acceptConflict">{{"acceptConflict"|translate}}</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+
+								<div class="col-md-12">
+									<div class="col-md-2">
+										<label class="control-label">
+											{{"room.location"|translate}}<span style="color: red;">*
+										</span>
+										</label>
+									</div>
+									<div class="col-md-3 form-group ">
+										<input type="text" id="selectedRoom" name="selectedRoom"
+											(click)="selectchoixsalles()" class="form-control"
+											[(ngModel)]="selectedRoom.name" required>
+									</div>
+									<div class="col-md-1">
+										<label class="control-label">{{"reservation.type"|translate}}<span
+											style="color: red;">*</span></label>
+									</div>
+									<div class="col-md-2 form-group ">
+										<select class="selectpicker"
+											data-style="select-with-transition" data-size="4"
+											name="typeres11" [(ngModel)]="newReservation.typeres"
+											required>
+											<option *ngFor='let type of types' [ngValue]='type'>{{type.name}}</option>
+										</select>
+									</div>
+									<div class="col-md-1">
+										<label class="control-label">{{"reservation.vis"|translate}}<span
+											style="color: red;">*</span></label>
+									</div>
+									<div class=" col-md-3 form-group">
+										<select class="selectpicker"
+											data-style="select-with-transition" data-size="4"
+											name="visibilitytyperes11"
+											[(ngModel)]="newReservation.visibilitytyperes" required>
+											<option *ngFor='let vtype of vtypes' [ngValue]='vtype'>{{vtype.typev}}</option>
+										</select>
+									</div>
+								</div>
+								<hr>
+
+
+
+
+								<div class="col-md-12"
+									style="padding-bottom: 10px; background-color: #d8d8d8; margin-left: 15px; width: 96.5%;">
+									<label class="control-label"
+										style="font-size: 12px; color: #100101; font-weight: bold">
+										{{"reservation.name"|translate}} {{eventPeriodname}}
+										{{"from"|translate}} {{newReservation.startdate}}
+										{{newReservation.starttime}} {{"to"|translate}}
+										{{newReservation.enddate}} {{newReservation.endtime}} <span
+										*ngIf="newReservation.typereservation!='simple'">
+											{{"calendar.every"|translate}} {{newReservation.frequency}} <span
+											*ngIf="newReservation.typereservation==='daily'">{{"calendar.day"|translate}}</span>
+
+											<span *ngIf="newReservation.typereservation==='weekly'">{{"calendar.week"|translate}}
+												( <span *ngFor="let day of selectedDays">{{day.name
+													|translate}};</span> )
+										</span> <span *ngIf="newReservation.typereservation==='monthly'">{{"calendar.month"|translate}}(
+												<span *ngIf="newReservation.monthdayof==='dayofweek'">{{"calendar.everyDayOfTheWeek"|translate}}</span>
+												<span *ngIf="newReservation.monthdayof==='dayofmonth'">{{"calendar.everyDayOfTheMonth"|translate}}</span>)
+										</span> <span *ngIf="newReservation.typereservation==='yearly'">{{"calendar.year"|translate}}
+										</span> {{"calendar.withPeriodicity"|translate}} <span
+											*ngIf="newReservation.dailyenddate==='radioocur'">{{"calendar.from"|translate}}
+												{{newReservation.reccurenceNumber}}
+												{{"calendar.occurrence"|translate}}(s) </span> <span
+											*ngIf="newReservation.dailyenddate==='radioend'">{{"calendar.untilTheDateOf"|translate}}
+												{{newReservation.reccurenceenddate}}</span> <span
+											*ngIf="newReservation.dailyenddate==='noend'">{{"ofAYear"|translate}}
+										</span>
+									</span>
+									</label>
+								</div>
+								<div class="col-md-12">
+									<textarea style="width: 100%" id="description"
+										name="description" rows="15"
+										[(ngModel)]="newReservation.description"></textarea>
+								</div>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" (click)="hideModel('simpleRes')"
+								class="btn btn-finish btn-warning btn-fill" data-toggle="modal"
+								data-dismiss="modal">{{"cn"|translate}}</button>
+							<button *ngIf="!newReservation.invitePartisipans" type="submit"
+								(click)="onSubmitPeriodicite()"
+								class="btn btn-finish btn-primary btn-fill"
+								[disabled]="!simpleResnew.form.valid || !selectedRoomIsvalide">
+								{{"saveAndClose"|translate}}</button>
+							<button *ngIf="newReservation.invitePartisipans" type="submit"
+								(click)="onSubmitPeriodicite()"
+								class="btn btn-finish btn-primary btn-fill"
+								[disabled]="!simpleResnew.form.valid || !selectedRoomIsvalide">
+								{{"send"|translate}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal modal-wide top fade" id="periodiciteRes"
+			tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			aria-hidden="true" style="top: -10%;">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form name="formSimple" #periodiciteRes="ngForm">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">
+								<i class="material-icons">clear</i>
+							</button>
+							<ul class="nav nav-pills nav-pills-orange center-block">
+								<li class="active"><a href="#pill1" data-toggle="tab">{{"appointmentPeriodicity"|translate}}</a>
+								</li>
+							</ul>
+						</div>
+						<div class="modal-body" style="overflow-y: auto;">
+							<div class="tab-content">
+								<div class="row">
+									<form>
+										<fieldset
+											style="margin-bottom: 20px; border: 2px solid #9c27b0; font-size: 10px; padding: 0 20px 10px 20px;">
+											<legend>{{"appointmentTime"|translate}}</legend>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>{{"calendar.from"|translate}}<span
+																style="color: red;">*</span> :
+															</label> <input format="HH:mm" id="starttimeperio" type="text"
+																class="timepicker form-control" onkeydown="return false"
+																[(ngModel)]="newReservation.starttime" (focusout)="resetRoom()"
+																(ngModelChange)="newReservationFromTime($event)"
+																name="starttime" required />
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>{{"calendar.to"|translate}}<span
+																style="color: red;">*</span> :
+															</label> <input format="HH:mm" id="endtimeperio" type="text"
+																class="form-control timepicker" onkeydown="return false"
+																value="18:00" name="endtime" (focusout)="resetRoom()"
+																[(ngModel)]="newReservation.endtime" required />
+														</div>
+													</div>
+												</div>
+										</fieldset>
+										<fieldset
+											style="margin-bottom: 20px; border: 2px solid #9c27b0; font-size: 10px; padding: 0 20px 10px 20px;">
+											<legend>{{"calendar.to"|translate}}</legend>
+											<div class="row" style="padding-bottom: 15px;">
+												<div class="radio">
+													<label class="col-sm-3"> <input type="radio"
+														name="reservationtype" id="radiotypereservation"
+														value="daily" (click)="onSelectChoiceTypeReservation()"
+														[(ngModel)]="newReservation.typereservation">
+														{{"calendar.daily"|translate}}
+													</label>
+												</div>
+												<div class="radio">
+													<label class="col-sm-3"> <input type="radio"
+														name="reservationtype" id="radiotypereservation"
+														value="weekly" (click)="onSelectChoiceTypeReservation()"
+														[(ngModel)]="newReservation.typereservation">
+														{{"calendar.weekly"|translate}}
+													</label>
+												</div>
+												<div class="radio">
+													<label class="col-sm-3"> <input type="radio"
+														name="reservationtype" id="radiotypereservation"
+														value="monthly" (click)="onSelectChoiceTypeReservation()"
+														[(ngModel)]="newReservation.typereservation">
+														{{"calendar.monthly"|translate}}
+													</label>
+												</div>
+												<div class="radio">
+													<label class="col-sm-3"><input type="radio"
+														name="reservationtype" id="radiotypereservation"
+														value="yearly" (click)="onSelectChoiceTypeReservation()"
+														[(ngModel)]="newReservation.typereservation" required>{{"calendar.yearly"|translate}}
+													</label>
+												</div>
+											</div>
+											<div *ngIf="newReservation.typereservation==='daily'">
+												<div class="row">
+													<div class="form-group">
+														<label class="col-sm-2 ">{{"calendar.every"|translate}}</label>
+														<label class="col-sm-8"><input type="number"
+															name="number" class="form-control" min="1"
+															onkeydown="return false"
+															[(ngModel)]="newReservation.frequency" required></label>
+														<label class="col-sm-2 ">
+															{{"calendar.day"|translate}}</label>
+													</div>
+												</div>
+												<!--div class="radio"><label class="col-sm-6"> <input type="radio" name="enddate" id="radioocur" 
+                                            value="radioocur" [(ngModel)]="newReservation.type" > Tous les jours ouvrables</label></div-->
+											</div>
+											<div *ngIf="newReservation.typereservation==='weekly'">
+												<div class="row">
+													<div class="form-group">
+														<label class="col-sm-2 ">{{"calendar.every"|translate}}</label>
+														<label class="col-sm-8"><input type="number"
+															name="number" class="form-control" min="1"
+															onkeydown="return false"
+															[(ngModel)]="newReservation.frequency" required></label>
+														<label class="col-sm-2 ">
+															{{"calendar.week"|translate}}</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group">
+														<div class="checkbox-radios">
+															<div *ngFor="let day of days">
+																<div class="checkbox">
+																	<label class="col-sm-2"> <input type="checkbox"
+																		name="selectedDay"
+																		[checked]="selectedDays.indexOf(day)>= 0"
+																		(change)="onSelectedDays(day, $event)">{{day.name
+																		| translate}}
+																	</label>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div *ngIf="newReservation.typereservation==='monthly'">
+												<div class="row">
+														<div class="form-group">
+														<label class="col-sm-2">{{"calendar.every"|translate}}</label>
+														<label class="col-sm-8"><input type="number"
+															name="number" class="form-control" min="1"
+															onkeydown="return false"
+															[(ngModel)]="newReservation.frequency" required></label>
+														<label class="col-sm-2 ">
+															{{"calendar.month"|translate}}</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="radio">
+														<label class="col-sm-6"> <input type="radio"
+															name="day" id="dayofweek" value="dayofweek"
+															[(ngModel)]="newReservation.monthdayof">
+															{{"calendar.everyDayOfTheWeek"|translate}}
+														</label>
+													</div>
+													<div class="radio">
+														<label class="col-sm-6"> <input type="radio"
+															name="day" id="dayofmonth" value="dayofmonth"
+															[(ngModel)]="newReservation.monthdayof">
+															{{"calendar.everyDayOfTheMonth"|translate}}
+														</label>
+													</div>
+												</div>
+											</div>
+											<div *ngIf="newReservation.typereservation==='yearly'">
+												<div class="row">
+													<div class="form-group">
+														<label class="col-sm-2 ">{{"calendar.every"|translate}}</label>
+														<label class="col-sm-8"><input type="number"
+															name="number" class="form-control" min="1"
+															onkeydown="return false"
+															[(ngModel)]="newReservation.frequency" required></label>
+														<label class="col-sm-2 ">
+															{{"calendar.year"|translate}}</label>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+										<fieldset
+											style="margin-bottom: 20px; border: 2px solid #9c27b0; font-size: 10px; padding: 0 20px 10px 20px;">
+											<legend>{{"periodicityInterval"|translate}}</legend>
+
+											<div class="row">
+												<div class="radio">
+													<label class="col-sm-3">{{"calendar.sd"|translate}}</label>
+												</div>
+												<div class="radio">
+													<label class="col-sm-3"> <input type="radio"
+														name="enddate" id="radioocur" value="radioocur"
+														[(ngModel)]="newReservation.dailyenddate">
+														{{"calendar.end"|translate}}
+														{{"calendar.after"|translate}} :
+													</label>
+												</div>
+<!-- 												<div class="radio"> -->
+<!-- 												<label class="col-sm-3">  -->
+<!-- 												<input type="radio" name="enddate" id="radioend" value="radioend"   -->
+<!-- 												[(ngModel)]="newReservation.dailyenddate">Fin le :  -->
+<!-- 												</label> -->
+<!-- 												</div> -->
+<!-- 												<div class="radio"> -->
+<!-- 													<label class="col-sm-3"><input type="radio" -->
+<!-- 														name="enddate" id="noend" value="noend" -->
+<!-- 														[(ngModel)]="newReservation.dailyenddate" required>{{"calendar.noend"|translate}} -->
+<!-- 													</label> -->
+<!-- 												</div> -->
+											</div>
+											<div class="row">
+												<div class="col-md-12 ">
+													<label class="col-sm-3"> <input format="DD-MM-YYYY"
+														onkeydown="return false" id="startdateperio" type="text"
+														class="form-control datepicker" name="startdateperio"
+														[(ngModel)]="newReservation.startdate" />
+													</label>
+													<!-- <label class="col-sm-3"><input type="number" name ="numberoc" class="form-control" min="1"   onkeydown="return false" 
+                                                                    id="reccurenceNumber" [(ngModel)]="newReservation.reccurenceNumber" 
+                                                                    [disabled]="newReservation.dailyenddate !== 'radioocur'">
+                                                                    {{"calendar.occurrence"|translate}}s
+                                </label>-->
+													<label class="col-sm-3"><input format="DD-MM-YYYY"
+														onkeydown="return false" id="reccurenceenddateperio"
+														type="text" class="form-control datepicker"
+														name="reccurenceenddateperio"
+														[(ngModel)]="newReservation.reccurenceenddate"
+														 />
+													</label>
+												</div>
+											</div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" (click)="hideModel('periodiciteRes')"
+								class="btn btn-finish btn-warning btn-fill" data-toggle="modal"
+								data-dismiss="modal">{{"cn"|translate}}</button>
+							<button (click)="choixDeletePeriodicite()"
+								class="btn btn-finish btn-primary btn-fill"
+								[disabled]="newReservation.typereservation==='simple'">
+								{{"deletePeriodicity"|translate}}</button>
+							<button type="submit" (click)="choixSelectPeriodicite()"
+								class="btn btn-finish btn-primary btn-fill"
+								[disabled]="newReservation.typereservation==='simple'"
+								data-toggle="modal" data-dismiss="modal">
+								{{"reservation.create"|translate}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="simpleResUpd" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form name="formSimpleUpd">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">
+								<i class="material-icons">clear</i>
+							</button>
+							<ul class="nav nav-pills nav-pills-orange center-block">
+								<li class="active"><a href="#pillv" data-toggle="tab"
+									id="nameSupd"></a></li>
+							</ul>
+						</div>
+						<div class="modal-body">
+							<div class="tab-content">
+								<div class="tab-pane active" id="pillv">
+									<div class="col-sm-12">
+										<div class="row"></div>
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="label-control">Date : </label> <input
+														format="DD-MM-YYYY" id="startsupd" type="text"
+														class="datepicker form-control" value="20/09/2017"
+														name="start" />
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="label-control">{{"calendar.from"|translate}}
+														: </label> <input format="HH:mm" id="starttimesud" type="text"
+														class="form-control timepicker" value="14:00"
+														name="starttime" />
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="label-control">{{"calendar.to"|translate}}
+														: </label> <input format="HH:mm" id="endtimesupd" type="text"
+														class="form-control timepicker" value="14:00"
+														name="endtime" />
+												</div>
+											</div>
+										</div>
+										<div class="material-datatables">
+											<table id="tableroomsUpd"
+												class="table table-striped table-no-bordered table-hover"
+												cellspacing="0" width="100%" style="width: 100%">
+												<thead>
+													<tr>
+														<th class="disabled-sorting text-center">Action</th>
+														<th class="text-center">{{"name"|translate}}</th>
+														<th class="text-center">{{"room.location"|translate}}</th>
+														<th class="disabled-sorting text-center">{{"room.equipment"|translate}}</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr *ngFor="let meetingRoom of rooms ; let idx = index"
+														style="cursor: pointer">
+														<td>
+															<div class="radio">
+																<label> <input type="radio" name="roomselected"
+																	[value]="meetingRoom.name"
+																	(change)="onUpdateRoomChange(meetingRoom)">
+																</label>
+															</div>
+														</td>
+														<td>{{meetingRoom.name}}</td>
+														<td>{{meetingRoom.idbuilding.namebuilding +',floor:'
+															+ meetingRoom.idfloor.numfloor+ ',block:'+
+															meetingRoom.idblock.nameblock}}</td>
+														<td><a data-toggle="collapse"
+															href="#{{1+meetingRoom.idroom.toString()}}"
+															class="collapsed"> info </a>
+															<div class="collapse"
+																id={{1+meetingRoom.idroom.toString()}}>
+																<b>{{"capacity"|translate}}</b> :
+																{{meetingRoom.capacity.toString()}}<br /> <b>{{"vp"|translate}}</b>
+																: {{meetingRoom.videoproj.toString()}}<br /> <b>{{"pt"|translate}}:</b>
+																{{meetingRoom.pontteleph.toString()}}<br /> <b>{{"vs"|translate}}
+																	: </b>{{meetingRoom.visio.toString()}}
+															</div></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" (click)="update()"
+								class="btn btn-finish btn-primary btn-fill" data-toggle="modal"
+								data-dismiss="modal">{{"upd"|translate}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal  modal-wide top fade" id="rooms" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			style="top: -10%">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<i class="material-icons">clear</i>
+						</button>
+						<h4 id="title1" class="modal-title text-warning">{{"room.meetingRooms"|translate}}</h4>
+					</div>
+					<div id="desc1" class="modal-body" style="overflow-y: auto">
+						<form name="rooms" class="form-horizontal">
+							<div class="material-datatables">
+
+								<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+									id="tableroomsper"
+									class="table table-striped table-no-bordered table-hover"
+									cellspacing="0" width="100%" style="width: 100%">
+									<thead>
+										<tr>
+											<th class="disabled-sorting text-center"></th>
+											<th class="text-center">{{"name"|translate}}</th>
+											<th class="text-center">{{"room.location"|translate}}</th>
+											<th class="disabled-sorting text-center">{{"room.equipment"|translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let meetingRoom of rooms ; let idx = index">
+											<td>
+												<div class="radio">
+													<label> <input type="radio" name="roomselected"
+														id="roomselected" [value]="meetingRoom.idroom"
+														[(ngModel)]="newReservation.room.idroom"
+														(change)="onSelectionRoomChange(meetingRoom)">
+													</label>
+												</div>
+											</td>
+											<td>{{meetingRoom.name}}</td>
+											<td>{{meetingRoom.idbuilding.namebuilding +',floor:' +
+												meetingRoom.idfloor.numfloor+ ',block:'+
+												meetingRoom.idblock.nameblock}}</td>
+											<td><a data-toggle="collapse"
+												href="#{{meetingRoom.idroom.toString()}}" class="collapsed">
+													info </a>
+												<div class="collapse" id={{meetingRoom.idroom.toString()}}>
+													<b>{{"capacity"|translate}}</b> :
+													{{meetingRoom.capacity.toString()}}<br /> <b>{{"vp"|translate}}</b>
+													: {{meetingRoom.videoproj.toString()}}<br /> <b>{{"pt"|translate}}:</b>
+													{{meetingRoom.pontteleph.toString()}}<br /> <b>{{"vs"|translate}}
+														: </b>{{meetingRoom.visio.toString()}}
+												</div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" (click)="hideModel('rooms')"
+							class="btn btn-finish btn-warning btn-fill" data-toggle="modal"
+							data-dismiss="modal">{{"cn"|translate}}</button>
+						<button type="submit" class="btn btn-finish btn-primary btn-fill"
+							data-toggle="modal" data-dismiss="modal"
+							[disabled]="!(selectedRoomIsvalide)">
+							{{"validateChoice"|translate}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal  modal-wide top fade" id="parts" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			style="top: -10%">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<i class="material-icons">clear</i>
+						</button>
+						<h4 id="title2" class="modal-title text-warning">{{"participants"|translate}}</h4>
+					</div>
+					<div id="desc2" class="modal-body" style="overflow-y: auto">
+						<form name="parts" class="form-horizontal">
+							<div class="material-datatables" class="checkbox-radios">
+								<table id="listCollabsper"
+									class="table table-striped table-no-bordered table-hover"
+									cellspacing="0" width="100%" style="width: 100%">
+									<thead>
+										<tr>
+											<th class="disabled-sorting"></th>
+											<th class="">{{"name"|translate}}</th>
+											<th class="">{{"emailAdress"|translate}}</th>
+											<th class="disabled-sorting">{{"required"|translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let collab of collabs ; let idx = index"
+											style="cursor: pointer">
+											<td>
+												<div class="checkbox">
+													<label> <input type="checkbox"
+														name="collabselected" [value]="collab.name"
+														[(ngModel)]="collab.action"
+														[checked]="selectedCollab.indexOf(collab) >= 0"
+														(change)="onSelectionCollabChange(collab, $event)">
+													</label>
+												</div>
+											</td>
+											<td>{{collab.firstName}}</td>
+											<td>{{collab.mail}}</td>
+
+											<td>
+												<div class="checkbox">
+													<label> <input type="checkbox"
+														name="collaboblselected" [(ngModel)]="collab.obligatoire"
+														[checked]="selectedCollabobli.indexOf(collab) >= 0"
+														(change)="onSelectionCollabObliChange(collab, $event)">
+													</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" (click)="hideModel('parts')"
+							class="btn btn-finish btn-warning btn-fill" data-toggle="modal"
+							data-dismiss="modal">{{"cn"|translate}}</button>
+						<button type="submit" (click)="selectListeParts()"
+							class="btn btn-finish btn-primary btn-fill" data-toggle="modal"
+							data-dismiss="modal">{{"validateChoice"|translate}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
